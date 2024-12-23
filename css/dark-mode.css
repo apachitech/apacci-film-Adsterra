@@ -1,0 +1,33 @@
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode .movie {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .overlay {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+body.dark-mode .overlay .info button {
+    background: #ff7f50;
+}
+
+body.dark-mode .overlay .info button:hover {
+    background: #ff4500;
+}
+
+body.dark-mode .movie-page .banner {
+    border-bottom: 1px solid #ffffff;
+}
+
+body.dark-mode .suggestions h2 {
+    color: #ffffff;
+}
+
+body.dark-mode .suggestion img {
+    border: 1px solid #ffffff;
+}

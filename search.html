@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/filtersearch.css">
+
+    <!-- Adsterra Popunder Ad-->
+    <script type='text/javascript' src='//pl25348700.profitablecpmrate.com/58/e5/9b/58e59b65375e71af404d13c2195bc07e.js'></script>
+
+
+</head>
+<body>
+    <header>
+        <button type="button" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">Dark Mode</button>
+        <a class="nav-link" href="/home" title="Home"><strong>HOME</strong></a>
+    </header>
+    <main>
+
+        <div id="filters">
+            <input type="text" id="search-title" placeholder="Search by title">
+            <select id="filter-genre" aria-label="Filter by genre">
+                <option value="">All Genres</option>
+                <option value="Action">Action</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Drama">Drama</option>
+                <!-- Add more genres as needed -->
+            </select>
+            <input type="number" id="filter-year" placeholder="Release Year" min="1900" max="2100">
+            <select id="sort-rating" aria-label="Sort by rating">
+                <option value="">Sort by Rating</option>
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+            <button type="button" onclick="applyFilters()">Apply Filters</button>
+        </div>
+
+        <!--Adsterra Native Ad Placement -->
+        <div class="native-ad-container">
+            <script async="async" data-cfasync="false" src="//pl25348402.profitablecpmrate.com/8c9ed8ea0734b582f81589a43afd421c/invoke.js"></script>
+            <div id="container-8c9ed8ea0734b582f81589a43afd421c"></div>
+        </div>
+
+        <div id="container"></div>
+    </main>
+    <script src="js/data.js"></script>
+    <script src="js/filtersearch.js"></script>
+</body>
+</html>

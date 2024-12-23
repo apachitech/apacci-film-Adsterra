@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/data.css">
+    <link rel="stylesheet" href="css/search-login.css">
+    <title>Responsive Site</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .header {
+            padding: 5px 4%;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        /* Adjust the logo image inside the navbar */
+        .navbar-brand img {
+            height: 80px; /* Sets the height of the logo */
+            width: auto; /* Maintains the aspect ratio */
+            object-fit: contain; /* Ensures the image scales nicely */
+            margin-right: 10px; /* Adds spacing after the logo if needed */
+            display: inline-block; /* Keeps the logo inline with the text */
+            vertical-align: middle; /* Aligns the logo vertically with navbar content */
+        }
+
+        
+        .search-container {
+            display: none;
+        }
+
+
+        .nav-links a, .user-actions a {
+            color: #f0f0f0;
+            text-decoration-color: #f0f0f0;
+            margin-right: 20px;
+            text-align: center;
+        }
+
+        .login-button {
+            background-color: #9cf50d;
+            color: #f0f0f0;
+        }
+
+        .signup-button {
+            color: #f0f0f0;
+        }
+        
+        .main-content {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            margin-top: 25px; /* Adjust margin to account for fixed header */
+        }
+        .carousel {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .carousel-item.active {
+            opacity: 1;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .content-info {
+            position: absolute;
+            bottom: 10%;
+            left: 4%;
+            width: 90%;
+            max-width: 500px; /* Set a max width for better layout on larger screens */
+            background: rgba(252, 245, 245, 0.986); /* Added background for readability */
+            opacity: 0.7; /* Adjusted opacity */
+            padding: 20px; /* Added padding for better spacing */
+            border-radius: 10px; /* Rounded corners */
+        }
+
+       /* .native-ad-container {
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }*/
+
+
+        .title {
+            font-size: 2em; /* Adjusted for responsiveness */
+            margin-bottom: 10px;
+        }
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .star {
+            color: #ffd700;
+        }
+        .description {
+            margin-bottom: 20px;
+        }
+        .meta-info {
+            margin-bottom: 20px;
+        }
+        .watch-trailer {
+            background-color: rgba(247, 225, 30, 0.973);
+            color: #1a1515;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-left: 16px solid #f50d0d;
+            border-bottom: 8px solid transparent;
+        }
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+        }
+        .arrow-left {
+            left: 20px;
+        }
+        .arrow-right {
+            right: 20px;
+        }
+        .arrow::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-top: 3px solid #fff;
+            border-right: 3px solid #fff;
+        }
+        .arrow-left::before {
+            transform: rotate(-135deg);
+        }
+        .arrow-right::before {
+            transform: rotate(45deg);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .content-info {
+                width: 80%;
+                left: 10%;
+                bottom: 5%;
+            }
+            .title {
+                font-size: 1.5em;
+            }
+            .navbar-brand img {
+                height: 40px; /* Reduce logo size on smaller devices */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-info {
+                width: 90%;
+                left: 5%;
+                bottom: 2%;
+            }
+            .title {
+                font-size: 1.2em;
+            }
+            .watch-trailer {
+                font-size: 0.8em;
+                padding: 5px 10px;
+            }
+        }
+
+        footer {
+            background-color: #111;
+            padding: 20px 0;
+            text-align: center;
+            color: #fff;
+            margin-top: 20px;
+        }
+        footer .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        footer .row {
+            margin-bottom: 10px;
+        }
+        footer a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        footer .navbar-brand {
+            font-size: 1.5em;
+            color: #e50914;
+        }
+        footer i {
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .user-actions {
+                display: none;
+            }
+            .navbar-toggler {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand logo" href="/home" title="APACCI-FILM LOGO">
+                <img src="logo/_50e98ab2-c6a1-4794-9cb9-719abac32537-removebg-preview.png" alt="APACCI-FILM Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home" title="Home"><strong>HOME</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.html" title="Movies"><strong>BROWSE MOVIES </strong></a>
+                    </li>
+                    <li class="nav-item" style="display: none;">
+                        <a class="nav-link" href="/shows" title="Shows"><strong>TV SHOWS</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact" title="Contact Us"><strong>CONTACT US</strong></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="search-container" display="">
+                <input type="text" class="search-input" placeholder="Search...">
+                <button class="search-button" title="Search"><i class="fas fa-search"></i></button>
+            </div>
+            <a class="login-button" href="login.html" title="Login">Login</a>
+            <a class="signup-button" href="signup.html" title="Sign Up">Sign Up</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="carousel">
+            <div class="carousel-item active">
+                <img src="carousels/breathe-4.jpg" alt="Frozen movie backdrop">
+                <div class="content-info">
+                    <h3 class="title"><strong>BREATHE</strong></h3>
+                    <div class="rating">
+                        <span class="star">★★★★</span>
+                        <span>5.3(imdb)</span>
+                        <button><span>13+</span></button>
+                        <span> 1h 33min</span>
+                    </div>
+                    <p class="description">Air-supply is scarce in the near future, forcing a mother and daughter to fight for survival when two strangers arrive desperate for an oxygenated haven.</p>
+                    <div class="meta-info">
+                        <p><strong>Starring:</strong>Jennifer Hudson, Milla Jovovich, Quvenzhané Wallis</p>
+                        <p><strong>Genres:</strong>  Science Fiction, Mystery, Thriller</p>
+                        <p><strong>Tags:</strong> Science Fiction, Mystery, Thriller</p>
+                        <p><strong>year:</strong>2024</p>
+                    </div>
+                    <button class="watch-trailer" data-trailer="https://www.youtube.com/watch?v=example1">
+                        <span class="play-icon"></span> Watch Trailer
+                    </button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="carousels/d-wolverine-5.jpg" alt="Moana movie backdrop">
+                <div class="content-info">
+                    <h3 class="title"><strong>Deadpool & Wolverine</strong></h3>
+                    <div class="rating">
+                        <span class="star">★★★★★</span>
+                        <span>7.8(imdb)</span>
+                        <button><span>PG-13</span></button>
+                        <span>2h 8min</span>
+                    </div>
+                    <p class="description">when his homeworld faces an existential threat, Wade must reluctantly suit-up again with an even more reluctant Wolverine.</p>
+                    <div class="meta-info">
+                        <p><strong>Starring:</strong> Ryan Reynolds, Hugh Jackman, Wesley Snipes</p>
+                        <p><strong>Genres:</strong> Action, Comedy, Science Fiction</p>
+                        <p><strong>Tags:</strong>  Action, Comedy, Science Fiction</p>
+                        <p><strong>year:</strong>2024</p>
+                    </div>
+                    <button class="watch-trailer" data-trailer="https://www.youtube.com/watch?v=example1">
+                        <span class="play-icon"></span> Watch Trailer
+                    </button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="carousels/bad-boy-8.jpg" alt="Moana movie backdrop">
+                <div class="content-info">
+                    <h3 class="title"><strong>BAD BOY, RIDE OR DIE </strong></h3>
+                    <div class="rating">
+                        <span class="star">★★★★★</span>
+                        <span>7.6(imdb)</span>
+                        <button><span>PG</span></button>
+                        <span>1h 55min</span>
+                    </div>
+                    <p class="description">After their late former Captain is framed, Lowrey and Burnett try to clear his name, only to end up on the run themselves.</p>
+                    <div class="meta-info">
+                        <p><strong>Starring:</strong> Martin Lawrence, Will Smith, Vanessa Hudgens</p>
+                        <p><strong>Genres:</strong>  Action, Crime, Thriller, Comedy</p>
+                        <p><strong>Tags:</strong>  Action, Crime, Thriller, Comedy</p>
+                        <p><strong>year:</strong>2024</p>
+                    </div>
+                    <button class="watch-trailer" data-trailer="https://www.youtube.com/watch?v=example1">
+                        <span class="play-icon"></span> Watch Trailer
+                    </button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="carousels/b-h-cop-2.jpg" alt="Coco movie backdrop">
+                <div class="content-info">
+                    <h3 class="title"><strong>BEVERLY HILLS COP</strong></h3>
+                    <div class="rating">
+                        <span class="star">★★★★★</span>
+                        <span>6.8(imdb)</span>
+                        <button><span>PG</span></button>
+                        <span>1h 58min</span>
+                    </div>
+                    <p class="description">Forty years after his unforgettable first case in Beverly Hills, Detroit cop Axel Foley returns to do what he does best: solve crimes and cause chaos.</p>
+                    <div class="meta-info">
+                        <p><strong>Starring:</strong> Eddie Murphy, Joseph Gordon-Levitt, Taylour Paige</p>
+                        <p><strong>Genres:</strong>  Action, Comedy, Crime</p>
+                        <p><strong>Tags:</strong>  Action, Comedy, Crime</p>
+                        <p><strong>year:</strong>2024</p>
+                    </div>
+                    <button class="watch-trailer" data-trailer="https://www.youtube.com/watch?v=example1">
+                        <span class="play-icon"></span> Watch Trailer
+                    </button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="carousels/fly-me-moon-4.jpg" alt="Coco movie backdrop">
+                <div class="content-info">
+                    <h3 class="title"><strong>FLY ME TO THE MOON</strong></h3>
+                    <div class="rating">
+                        <span class="star">★★★★★</span>
+                        <span>8.4(imdb)</span>
+                        <button><span>PG</span></button>
+                        <span>2h 12min</span>
+                    </div>
+                    <p class="description">Sparks fly in all directions as marketing maven Kelly Jones, brought in to fix NASA's public image, wreaks havoc on Apollo 11 launch director Cole Davis' already difficult task of putting a man on the moon.</p>
+                    <div class="meta-info">
+                        <p><strong>Starring:</strong> Scarlett Johansson, Channing Tatum, Woody Harrelson</p>
+                        <p><strong>Genres:</strong>  Comedy, Romance</p>
+                        <p><strong>Tags:</strong>  Comedy, Romance </p>
+                        <p><strong>year:</strong>2024</p>
+                    </div>
+                    <button class="watch-trailer" data-trailer="https://www.youtube.com/watch?v=example1">
+                        <span class="play-icon"></span> Watch Trailer
+                    </button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="carousels/chief-of-station-5.jpg" alt="chief of station backdrop">
+                <div class="content-info">
+                    <h3 class="title"><strong>CHIEF OF STATION</strong></h3>
+                    <div class="rating">
+                        <span class="star">★★★★★</span>
+                        <span>5.6(imdb)</span>
+                        <button><span>PG</span></button>
+                        <span>1h 33min</span>
+                    </div>
+                    <p class="description">After learning that the death of his wife was not an accident, a former CIA Station Chief is forced back into the espionage underworld, teaming up with an adversary to unravel a conspiracy that challenges everything he thought he knew.</p>
+                    <div class="meta-info">
+                        <p><strong>Starring:</strong> Aaron Eckhart, Alex Pettyfer, Olga Kurylenko</p>
+                        <p><strong>Genres:</strong>  Action, Thriller</p>
+                        <p><strong>Tags:</strong>  Action, Thriller</p>
+                        <p><strong>year:</strong>2024</p>
+                    </div>
+                    <button class="watch-trailer" data-trailer="https://www.youtube.com/watch?v=example1">
+                        <span class="play-icon"></span> Watch Trailer
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="arrow arrow-left"></div>
+        <div class="arrow arrow-right"></div>
+    </main>
+
+
+    <button type="button" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">Dark Mode</button>
+
+    <!--Adsterra Ad Placement -->
+    <div id="ad-container" style="margin-top: 20px; text-align: center;">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '45d90535777491e8d0803cbcc36b07dc',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/45d90535777491e8d0803cbcc36b07dc/invoke.js"></script>
+    </div>
+
+    <!--Adsterra Native Ad Placement -->
+    <div class="native-ad-container">
+        <script async="async" data-cfasync="false" src="//pl25348402.profitablecpmrate.com/8c9ed8ea0734b582f81589a43afd421c/invoke.js"></script>
+        <div id="container-8c9ed8ea0734b582f81589a43afd421c"></div>
+    </div>
+
+
+
+
+    <main id="container" role="main"></main>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/@APACCIDESIGN" title="YouTube"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                    <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-12">
+                    © 2024 <a class="navbar-brand logo" href="/home" title="APACCI.TV">
+                        <img src="logo/_50e98ab2-c6a1-4794-9cb9-719abac32537-removebg-preview.png" alt="APACCI-FILM LOGO" style="width: 70px;">
+                    </a>
+                       . All rights reserved.
+                </div>
+            </div>
+        </div>
+        <button type="button" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">Dark Mode </button>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/landingpage.js"></script>
+    <script src="js/watchtrailer.js"></script>
+
+    <script src="https://kit.fontawesome.com/34b20db87a.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollToPlugin.min.js"></script>
+    
+    <script>
+        const carousel = document.querySelector('.carousel');
+        const items = carousel.querySelectorAll('.carousel-item');
+        const leftArrow = document.querySelector('.arrow-left');
+        const rightArrow = document.querySelector('.arrow-right');
+        let currentIndex = 0;
+        let autoSlideInterval;
+
+        function showSlide(index) {
+            items.forEach(item => item.classList.remove('active'));
+            items[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % items.length;
+            showSlide(currentIndex);
+        }
+
+        function previousSlide() {
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+            showSlide(currentIndex);
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 3000); // Change slide every 3 seconds
+        }
+
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+
+        leftArrow.addEventListener('click', () => {
+            previousSlide();
+            stopAutoSlide();
+            startAutoSlide(); // Restart auto slide after manual navigation
+        });
+
+        rightArrow.addEventListener('click', () => {
+            nextSlide();
+            stopAutoSlide();
+            startAutoSlide(); // Restart auto slide after manual navigation
+        });
+
+        // Start the automated slideshow
+        startAutoSlide();
+    </script>
+</body>
+</html>
